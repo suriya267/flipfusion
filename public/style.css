@@ -2,8 +2,12 @@ body {
     margin: 0;
     background: #056639;
 }
-   
 
+.main-container{
+padding-left: 20%;
+padding-right: 20%;
+}
+   
 .header-container{
     display: flex;
     padding: 0px 2rem 0px 1.1rem;
@@ -149,3 +153,17 @@ opacity: 0;
        transform: translateY(0);
     }
 }
+
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .main-container{
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+
+    .content-container{
+        background: none;
+    
+    }
+  }
