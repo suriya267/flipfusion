@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+    background: #056639;
+}
+   
+
+.header-container{
+    display: flex;
+    padding: 0px 2rem 0px 1.1rem;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0;
+    background: white;
+}
+
+.button-restart{
+    border: none;
+    background: none;
+    background: #056639;
+    padding: 7px 18px;
+    color: white;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+.button-restart:hover{
+    background-color: #083d24;
+    transition: all .3s;
+}
+
+
+
+.content-container{
+    padding: 1rem 0px 1rem 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+
+}
+
+.flip-container{
+  width: fit-content;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  background: white;
+}
+
+.flip-card-1,
+.flip-card-2,
+.flip-card-3,
+.flip-card-4,
+.flip-card-5,
+.flip-card-6,
+.flip-card-7,
+.flip-card-8,
+.flip-card-9,
+.flip-card-10,
+.flip-card-11,
+.flip-card-12,
+.flip-card-13,
+.flip-card-14,
+.flip-card-15,
+.flip-card-16 {
+    width: 5rem;
+    height:7.2rem;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.3s; 
+    margin: 2px;
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.flip-card-front {
+    transform: rotateY(180deg);
+}
+
+.flip-card-back {
+    background-color: #f44336;
+}
+
+
+.overlay{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.7);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 1;
+opacity: 0;
+
+}
+
+.message{
+    position: relative;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 1.5 ease-out, slidUp 2s ease-out forwards;
+}
+
+.close{
+    position: absolute;
+    font-size: 3.5rem;
+    color: white;
+    right: 1rem;
+    top: 1rem;
+    cursor:pointer;
+    z-index: 2;
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes slidUp {
+    0%{
+        transform: translateY(50px);
+    }
+    100%{
+       transform: translateY(0);
+    }
+}

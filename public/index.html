@@ -1,0 +1,140 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FlipFusion</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div style="padding-left: 20%;padding-right: 20%;">
+            <div class="header-container">
+                <div>
+                    <img style="height: 5rem;" src="./images/FlipFusionLogo.png" alt="Error">
+                </div>
+                <div>
+                    <button onclick="restart()" class="button-restart">Restart</button>
+                </div>
+            </div>
+            <div class="content-container">
+                <div class="flip-container" id="flipContainer"></div>
+            </div>
+        </div>
+        <div class="overlay" id="overlay">
+          <div class="close" onclick="closeOverlay()">
+            <img style="height: 20px;" src="./images/close-icon.svg" alt="Error">
+          </div>
+            <div class="message">You won the game!</div>
+        </div>
+    </div>
+    <script>
+          const conatainer=document.getElementById("flipContainer");
+          let cards=[]
+
+          function initialValue(){
+            for (let i = 1; i <= 8; i++) {
+                cards.push(i, i); 
+            }
+        
+          cards = cards.sort(() => Math.random() - 0.5);
+          }
+
+          initialValue();
+
+          function restart(){
+            window.location.reload();
+          }
+
+          for (let i = 0; i < cards.length; i++) {
+              createParent(cards[i],i)
+          }
+
+          function createParent(item,i){
+            let createContainer=document.createElement('div')
+            createContainer.setAttribute("class",`flip-card-${i+1}`)
+            createContainer.setAttribute("id",`flip-c-${i+1}`)
+            conatainer.appendChild(createContainer);
+          
+            const seletedCard=document.getElementById(`flip-c-${i+1}`);
+
+            let newDiv = document.createElement('div');
+            newDiv.setAttribute("class","flip-card-front")
+            newDiv.setAttribute("onclick",`handleEvent(${item},${i+1})`)
+            newDiv.setAttribute("id",`flip-card-f-${i+1}`)
+
+            let newDiv1 = document.createElement('div');
+            newDiv1.setAttribute("class","flip-card-back")
+            newDiv1.setAttribute("onclick",`handleEvent(${item},${item,i+1})`)
+            newDiv1.setAttribute("id",`flip-card-b-${i+1}`)
+
+            seletedCard.appendChild(newDiv);
+            seletedCard.appendChild(newDiv1);
+
+            let frontImage= document.getElementById(`flip-card-f-${i+1}`)
+            let newimageFront = document.createElement('img');
+            newimageFront.style.height="100%"
+            newimageFront.src=`./images/front${item}.png`
+            
+            frontImage.appendChild(newimageFront)
+
+            let backImage= document.getElementById(`flip-card-b-${i+1}`)
+            let newimageBack = document.createElement('img');
+            newimageBack.style.height="100%"
+            newimageBack.src="./images/back.png"
+            backImage.appendChild(newimageBack)
+
+          }
+
+          let prev={value:0,index:null};
+          let completed=[];
+
+          function handleEvent(item,i) {      
+            if(completed.includes(item)===false){
+              const flipCard = document.querySelector(`.flip-card-${i}`);  
+              if(prev.value===0){
+                flipCard.style.transform ='rotateY(180deg)';
+                prev={value:item,index:i};
+
+              }else{
+                if(prev.value===item){
+                  if(prev.index!=i){                  
+                  flipCard.style.transform ='rotateY(180deg)';
+                  completed=[...completed,item];
+                  prev={value:0,index:null};
+
+                  if(completed.length===8){
+                    setTimeout(()=>{
+                      showMessage();
+                    },400)
+                  }
+                  }
+                }  
+                else{
+                  flipCard.style.transform ='rotateY(180deg)';
+                  setTimeout(()=>{                
+                    flipCard.style.transform ='';
+                    if(completed.includes(prev.value)===false){
+                       const flipCard1 = document.querySelector(`.flip-card-${prev.index}`);  
+                       flipCard1.style.transform ='';
+                    }
+                    prev={value:0,index:null};  
+
+                  },700)
+                }
+              }
+            }
+          }
+
+          function showMessage(){
+            const overlay = document.getElementById('overlay');
+            overlay.style.display='flex';
+            setTimeout(()=>{
+              overlay.style.opacity=1;
+            },50)
+          }
+
+         function closeOverlay(){
+          overlay.style.display='none';
+         }
+    </script>
+</body>
+</html>
