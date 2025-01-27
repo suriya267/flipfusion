@@ -27,114 +27,127 @@
         </div>
     </div>
     <script>
-          const conatainer=document.getElementById("flipContainer");
-          let cards=[]
+      const conatainer=document.getElementById("flipContainer");
+      let cards=[];
 
-          function initialValue(){
-            for (let i = 1; i <= 8; i++) {
-                cards.push(i, i); 
-            }
-        
-          cards = cards.sort(() => Math.random() - 0.5);
-          }
+      function setInitialValue(){
+        for (let i = 1; i <= 8; i++) {
+          cards.push(i, i); 
+        }
+        cards = cards.sort(() => Math.random() - 0.5);
+      }
 
-          initialValue();
+          setInitialValue()
 
-          function restart(){
-            window.location.reload();
-          }
+      function createElements(){
+         for (let i = 0; i < cards.length; i++) {
+           createParent(cards[i],i)
+        }
+      }
 
-          for (let i = 0; i < cards.length; i++) {
-              createParent(cards[i],i)
-          }
+      createElements()
 
-          function createParent(item,i){
-            let createContainer=document.createElement('div')
-            createContainer.setAttribute("class",`flip-card-${i+1}`)
-            createContainer.setAttribute("id",`flip-c-${i+1}`)
-            conatainer.appendChild(createContainer);
+      function createParent(item,i){
+        let createContainer=document.createElement('div')
+        createContainer.setAttribute("class",`flip-card-${i+1}`)
+        createContainer.setAttribute("id",`flip-c-${i+1}`)
+        conatainer.appendChild(createContainer);
           
-            const seletedCard=document.getElementById(`flip-c-${i+1}`);
+        const seletedCard=document.getElementById(`flip-c-${i+1}`);
 
-            let newDiv = document.createElement('div');
-            newDiv.setAttribute("class","flip-card-front")
-            newDiv.setAttribute("onclick",`handleEvent(${item},${i+1})`)
-            newDiv.setAttribute("id",`flip-card-f-${i+1}`)
+        let newDiv = document.createElement('div');
+        newDiv.setAttribute("class","flip-card-front")
+        newDiv.setAttribute("onclick",`handleEvent(${item},${i+1})`)
+        newDiv.setAttribute("id",`flip-card-f-${i+1}`)
 
-            let newDiv1 = document.createElement('div');
-            newDiv1.setAttribute("class","flip-card-back")
-            newDiv1.setAttribute("onclick",`handleEvent(${item},${item,i+1})`)
-            newDiv1.setAttribute("id",`flip-card-b-${i+1}`)
+        let newDiv1 = document.createElement('div');
+        newDiv1.setAttribute("class","flip-card-back")
+        newDiv1.setAttribute("onclick",`handleEvent(${item},${item,i+1})`)
+        newDiv1.setAttribute("id",`flip-card-b-${i+1}`)
 
-            seletedCard.appendChild(newDiv);
-            seletedCard.appendChild(newDiv1);
+        seletedCard.appendChild(newDiv);
+        seletedCard.appendChild(newDiv1);
 
-            let frontImage= document.getElementById(`flip-card-f-${i+1}`)
-            let newimageFront = document.createElement('img');
-            newimageFront.style.height="100%"
-            newimageFront.src=`./images/front${item}.png`
+        let frontImage= document.getElementById(`flip-card-f-${i+1}`)
+        let newimageFront = document.createElement('img');
+        newimageFront.style.height="100%"
+        newimageFront.src=`./images/front${item}.png`
             
-            frontImage.appendChild(newimageFront)
+        frontImage.appendChild(newimageFront)
 
-            let backImage= document.getElementById(`flip-card-b-${i+1}`)
-            let newimageBack = document.createElement('img');
-            newimageBack.style.height="100%"
-            newimageBack.src="./images/back.png"
-            backImage.appendChild(newimageBack)
+        let backImage= document.getElementById(`flip-card-b-${i+1}`)
+        let newimageBack = document.createElement('img');
+        newimageBack.style.height="100%"
+        newimageBack.src="./images/back.png"
+        backImage.appendChild(newimageBack)
 
-          }
+      }
 
-          let prev={value:0,index:null};
-          let completed=[];
+      let prev={value:0,index:null};
+      let completed=[];
 
-          function handleEvent(item,i) {      
-            if(completed.includes(item)===false){
-              const flipCard = document.querySelector(`.flip-card-${i}`);  
-              if(prev.value===0){
-                flipCard.style.transform ='rotateY(180deg)';
-                prev={value:item,index:i};
+      function handleEvent(item,i) {      
+        if(completed.includes(item)===false){
+          const flipCard = document.querySelector(`.flip-card-${i}`);  
+            if(prev.value===0){
+              flipCard.style.transform ='rotateY(180deg)';
+              prev={value:item,index:i};
 
-              }else{
-                if(prev.value===item){
-                  if(prev.index!=i){                  
+            }
+            else{
+              if(prev.value===item){
+                if(prev.index!=i){                  
                   flipCard.style.transform ='rotateY(180deg)';
                   completed=[...completed,item];
                   prev={value:0,index:null};
-
                   if(completed.length===8){
                     setTimeout(()=>{
                       showMessage();
                     },400)
                   }
-                  }
-                }  
-                else{
-                  flipCard.style.transform ='rotateY(180deg)';
-                  setTimeout(()=>{                
-                    flipCard.style.transform ='';
-                    if(completed.includes(prev.value)===false){
-                       const flipCard1 = document.querySelector(`.flip-card-${prev.index}`);  
-                       flipCard1.style.transform ='';
-                    }
-                    prev={value:0,index:null};  
-
-                  },700)
                 }
               }
+              else{
+                flipCard.style.transform ='rotateY(180deg)';
+                setTimeout(()=>{                
+                  flipCard.style.transform ='';
+                  if(completed.includes(prev.value)===false){
+                    const flipCard1 = document.querySelector(`.flip-card-${prev.index}`);  
+                    flipCard1.style.transform ='';
+                  }
+                  prev={value:0,index:null};  
+                },700)
+              }
             }
-          }
+        }
+      }
 
-          function showMessage(){
-            const overlay = document.getElementById('overlay');
-            overlay.style.display='flex';
-            setTimeout(()=>{
-              overlay.style.opacity=1;
-            },50)
-          }
+      function showMessage(){
+        const overlay = document.getElementById('overlay');
+        overlay.style.display='flex';
+        setTimeout(()=>{
+          overlay.style.opacity=1;
+        },50)
+      }
 
-         function closeOverlay(){
-          overlay.style.display='none';
-         }
+      function closeOverlay(){
+        overlay.style.display='none';
+      }
+
+      function restart(){
+        cards=[]
+        prev={value:0,index:null};
+        completed=[];
+        removeChild();
+        setInitialValue();
+        createElements();
+      }
+
+      function removeChild(){
+        const flipContainer = document.getElementById('flipContainer');        
+        flipContainer.querySelectorAll('*').forEach(child => child.remove());
+      }
+         
     </script>
 </body>
 </html>
