@@ -8,8 +8,8 @@
      git clone https://github.com/suriya267/flipfusion.git
 
   2. Navigate to the project directory:
-     cd flipfusion
-
+     cd flipfusion\public
+     
   3. Open the index.html file in your browser.
      open index.html  # or simply double-click the file to open in your browser
      That's it! You're ready to play the flipfusion.
@@ -22,8 +22,8 @@
 
 # Game Logic
   1. Shuffle Function: A shuffle function randomizes the positions of the cards at the start of the game.
-  2. Card Flipping: When a card is clicked, it flips to reveal its face. Two cards are compared for a match, and if they   match, they remain face-up. If they don't match, they flip back after a delay.
-  3. State Management: The game tracks which cards are flipped, which pairs have been matched, and whether all pairs have   been found.
+  2. Card Flipping: When a card is clicked, it flips to reveal its face. Two cards are compared for a match, and if they match, they remain face-up. If they don't match, they flip back after a delay.
+  3. State Management: The game tracks which cards are flipped, which pairs have been matched, and whether all pairs have been found.
   4. Restart Functionality: Clicking the restart button reshuffles the cards and resets the game state.
 
 # Technologies Used
