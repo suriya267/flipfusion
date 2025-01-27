@@ -4,8 +4,11 @@ body {
 }
 
 .main-container{
-padding-left: 20%;
-padding-right: 20%;
+    height: 100%;  /* Make sure the body and html take full height */
+    display: flex;
+    flex-direction: column; 
+    padding-left: 20%;
+    padding-right: 20%;
 }
    
 .header-container{
@@ -36,6 +39,7 @@ padding-right: 20%;
 
 
 .content-container{
+    flex-grow: 1;
     padding: 1rem 0px 1rem 0px;
     display: flex;
     align-items: center;
